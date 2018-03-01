@@ -119,8 +119,8 @@
 								<th>Código Chofer</th>
 								<th>Chofer</th>
 								<th>Compañia</th>
-								
-								<th>Detalles</th>
+								<th>Estado</th>
+								<th>Acciones</th>
 
 								</th>
 							</tr>

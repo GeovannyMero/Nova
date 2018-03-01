@@ -26,7 +26,6 @@ class DespachoClienteController extends Controller
       $camion = \DB::table('tbl_camion')
       ->join('tbl_ciclo','tbl_ciclo.eCodCamion','=','tbl_camion.eCodReg')
       ->where('tbl_camion.aEstado','A')
-      ->where('tbl_ciclo.eCodFlujo',2)
       ->select('tbl_camion.eCodReg as eCodReg', 'tbl_camion.aPlaca as placa', 'tbl_ciclo.aTicket as ticket')
       ->get();
      // dd($camion);
@@ -49,7 +48,6 @@ class DespachoClienteController extends Controller
 
           ->select('tbl_ciclo.eCodReg as cod','tbl_camion.aPlaca','tbl_chofer.eCodReg as eCodChofer','tbl_chofer.aNombre','tbl_chofer.aCompaTrans as cia')
           ->where('tbl_ciclo.eCodCamion',$placa)
-          ->where('tbl_ciclo.eCodFlujo',2)
         //  ->where('tbl_aprobacion.aResultado',$apro)
           ->get();
         }elseif ($placa <> 0 && $apro <> 'null') {
@@ -62,7 +60,6 @@ class DespachoClienteController extends Controller
           ->select('tbl_ciclo.eCodReg as cod','tbl_camion.aPlaca','tbl_chofer.eCodReg as eCodChofer','tbl_chofer.aNombre','tbl_chofer.aCompaTrans as cia')
           ->where('tbl_ciclo.eCodCamion',$placa)
           ->where('tbl_aprobacion.aResultado',$apro)
-          ->where('tbl_ciclo.eCodFlujo',2)
           ->get();
         }
         elseif($placa == 0 && $apro == 'null'){
@@ -74,7 +71,6 @@ class DespachoClienteController extends Controller
           ->select('tbl_ciclo.eCodReg as cod','tbl_camion.aPlaca','tbl_chofer.eCodReg as eCodChofer',
           'tbl_chofer.aNombre','tbl_chofer.aCompaTrans as cia','tbl_aprobacion.aResultado as estado')
           //->where('tbl_ciclo.eCodCamion',$placa)
-          ->where('tbl_ciclo.eCodFlujo',2)
           ->get();
         }else{
           //dd('4');
@@ -83,7 +79,6 @@ class DespachoClienteController extends Controller
           ->join('tbl_chofer','tbl_chofer.eCodReg','=','tbl_ciclo.eCodChofer')
           ->join('tbl_aprobacion', 'tbl_aprobacion.eCodCiclo','=','tbl_ciclo.eCodReg')
           ->select('tbl_ciclo.eCodReg as cod','tbl_camion.aPlaca','tbl_chofer.eCodReg as eCodChofer','tbl_chofer.aNombre','tbl_chofer.aCompaTrans as cia')
-          ->where('tbl_ciclo.eCodFlujo',2)
           ->get();
         }
 
@@ -231,29 +226,13 @@ class DespachoClienteController extends Controller
       ->get();
 //dd($ciclo);
       //Ingreso
-     $ingreso = \DB::table('tbl_ingreso')
+    /*  $ingreso = \DB::table('tbl_ingreso')
       ->join('tbl_ciclo','tbl_ciclo.eCodReg','tbl_ingreso.eCodCiclo')
       ->where('tbl_ciclo.eCodReg',$id)
       ->where('tbl_ciclo.eCodFlujo',2)
-      ->get();
-     
-     //Historial de limpieza
-       $hLimpieza = \DB::table('tbl_historiallimpieza')
-      ->join('tbl_ciclo','tbl_ciclo.eCodReg','=','tbl_historiallimpieza.eCodCiclo')
-      ->select('tbl_historiallimpieza.dFechaLimpieza as fecha', 'tbl_historiallimpieza.aMetodoLimpieza as MLim', 'tbl_historiallimpieza.aAgenteLimpieza as ALim',
-      'tbl_historiallimpieza.aMetodoFumigacion as MFumi','tbl_historiallimpieza.aAgentefumigacion as AFumi')
-       ->where('tbl_ciclo.eCodReg',$id)
-      ->where('tbl_ciclo.eCodFlujo',2)
-      ->get();
-
-       //Historial de carga
-      $hcarga =\DB::table('tbl_historialcarga')
-      ->join('tbl_ciclo','tbl_ciclo.eCodReg','=','tbl_historialcarga.eCodCiclo')
-      ->select('tbl_historialcarga.dFechaCarga as fecha', 'tbl_historialcarga.aProcedencia as procedencia', 
-      'tbl_historialcarga.aGuiaRemision as guia', 'tbl_historialcarga.aInsumo as insumo')
-      ->where('tbl_ciclo.eCodReg',$id)
-      ->where('tbl_ciclo.eCodFlujo',1)
-      ->get();
+      ->get();*/
+      $ingreso = Ciclo::find($id)->Ingreso();
+      dd(Datatables::of($ingreso)->make(true));
 
       //Aprbacion
       $apro = \DB::table('tbl_aprobacion')
@@ -307,7 +286,7 @@ class DespachoClienteController extends Controller
           ->where('tbl_ciclo.eCodReg',$id)
       ->get();
     // dd($salida);
-      return view('admin.DespachoCliente.detallesPT')->with('ciclo',$ciclo)->with('ingreso',$ingreso)->with('hLimpieza',$hLimpieza)->with('hcarga',$hcarga)->with('apro',$apro)->with('PI',$PI)->with('insp',$insp)->with('carga',$carga)->with('pesoS',$pesoS)->with('salida',$salida);
+      return view('admin.DespachoCliente.detallesPT')->with('ciclo',$ciclo)->with('ingreso',$ingreso)->with('apro',$apro)->with('PI',$PI)->with('insp',$insp)->with('carga',$carga)->with('pesoS',$pesoS)->with('salida',$salida);
 
     }
 }

@@ -29,7 +29,7 @@
     <!--panel de la llegada del camion-->
 
     <div class="panel-heading">
-      <h3 class="panel-title">LLEGADA</h3>
+      <h3 class="panel-title">Llegada</h3>
     </div>
     <div class="panel-body">
       <table id="example-1" class="table table-small-font table-bordered table-striped" cellspacing="0" width="100%">
@@ -40,7 +40,7 @@
             <th>Hora Llegada</th>
 
             <th>Camión</th>
-						<th>Cédula</th>
+						<th>Cedula</th>
             <th>Chofer</th>
 
             </th>
@@ -70,16 +70,16 @@
       <!--Inicio de Ingreso-->
 
     <div class="panel-heading">
-        <h3 class="panel-title">INGRESO</h3>
+        <h3 class="panel-title">Ingreso</h3>
 
     </div>
     <div class="table-body">
       <table id="example-1" class="table table-small-font table-bordered table-striped" cellspacing="0" width="100%">
         <thead>
           <tr>
-            <!--<th >Ciclo</th>-->
-            <th colspan='2'>Fecha Ingreso</th>
-            <th colspan='2'>Hora Ingreso</th>
+            <th >Ciclo</th>
+            <th>Fecha Ingreso</th>
+            <th>Hora Ingreso</th>
 
 
 
@@ -89,57 +89,11 @@
           @foreach($ingreso as $i)
           <tr>
               <td>{{ $i->eCodCiclo}}</td>
-              <td colspan='2'>{{ $i->dtFechaIngreso }}</td>
-              <td colspan='2'>{{ $i->hHoraIngreso}}</td>
+              <td>{{ $i->dtFechaIngreso }}</td>
+              <td>{{ $i->hHoraIngreso}}</td>
           </tr>
           @endforeach
-            <thead>
-                <tr>
-                    <th colspan ='5' bgcolor="#C9C2C2">Historial de limpieza</th>
-                </tr>
-                <tr>
-                    <th>Fecha</th>
-                    <th>Método Limpieza</th>
-                    <th>Agente Limpieza</th>
-                    <th>Método Fumigación</th>
-                    <th>Agente Fumigación</th>
 
-                </tr>
-            </thead>
-            <tbody>
-                @foreach($hLimpieza as $i)
-                <tr>
-                  <td>{{Carbon\Carbon::parse($i->fecha)->format('Y-m-d')}}</td>
-                  <td>{{$i->MLim}}</td>
-                  <td>{{$i->ALim}}</td>
-                  <td>{{$i->MFumi}}</td>
-                  <td>{{$i->AFumi}}</td>
-                </tr>
-                @endforeach
-            </tbody>
-            <!--Historial de carga-->
-                 <thead>
-                    <tr>
-                        <th colspan='5' bgcolor="#C9C2C2">Historial de Carga</th>
-                    </tr>
-                    <tr>
-                        <th>Fecha</th>
-                        <th>Procedencia</th>
-                        <th colspan='2'>Insumo</th>
-                        <th>Guia Remisión</th>
-                    </tr>
-                   </thead>
-                   <tbody>
-                       @foreach($hcarga as $i)
-                        <tr>
-                          <td>{{Carbon\Carbon::parse($i->fecha)->format('Y-m-d')}}</td>
-                          <td>{{$i->procedencia}}-</td>
-                          <td  colspan='2'>{{$i->insumo}}</td>
-                          <td>{{$i->guia}}</td>
-                        </tr>
-                       @endforeach
-                   </tbody>
-          
         </tbody>
       </table>
     </div>
@@ -147,7 +101,7 @@
   <!--Fin de ingreso-->
     <!--Aprobacion-->
     <div class="panel-heading">
-      <h3 class="panel-title">APROBACIÓN</h3>
+      <h3 class="panel-title">Aprobación</h3>
     </div>
     <div class="panel-body">
       <table id="example-1" class="table table-small-font table-bordered table-striped" cellspacing="0" width="100%">
@@ -181,7 +135,7 @@
     </div>
       <!--Peso Inicial-->
     <div class="panel-heading">
-      <h3 class="panel-title">PESO INICIAL</h3>
+      <h3 class="panel-title">Peso Inicial</h3>
     </div>
     <div class="panel-body">
        <table id="example-1" class="table table-small-font table-bordered table-striped" cellspacing="0" width="100%">
@@ -214,7 +168,7 @@
     <!--fin peso inicial-->
     <!--Inspeccion-->
     <div class="panel-heading">
-      <h3 class="panel-title">INSPECCIÓN</h3>
+      <h3 class="panel-title">Inspección</h3>
     </div>
     <div class="panel-body">
       <div id='ex'class="table-responsive"  data-pattern="priority-columns" data-focus-btn-icon="fa-asterisk" data-sticky-table-header="false" data-add-display-all-btn="true" data-add-focus-btn="false">
@@ -258,7 +212,7 @@
     <!--fin de inspeccion-->
     <!--Carga-->
     <div class="panel-heading">
-      <h3 class="panel-title">CARGA</h3>
+      <h3 class="panel-title">Carga</h3>
     </div>
     <div class="panel-body">
        <table id="example-1" class="table table-small-font table-bordered table-striped" cellspacing="0" width="100%">
@@ -290,7 +244,7 @@
     <!--fin de carga-->
     <!--Peso de Salida-->
     <div class="panel-heading">
-      <h3 class="panel-title">PESO SALIDA</h3>
+      <h3 class="panel-title">Peso Salida</h3>
     </div>
     <div class="panel-body">
        <table id="example-1" class="table table-small-font table-bordered table-striped" cellspacing="0" width="100%">
@@ -322,7 +276,7 @@
     <!--fin de Peso de salida-->
     <!--Salida-->
     <div class="panel-heading">
-      <h3 class="panel-title">SALIDA</h3>
+      <h3 class="panel-title">Salida</h3>
     </div>
     <div class="panel-body">
       <table id="example-1" class="table table-small-font table-bordered table-striped" cellspacing="0" width="100%">

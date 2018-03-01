@@ -9,13 +9,12 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Collection as Collection;
 use App\Modelos\Camion;
-use App\Modelos\Proveedor;
+use App\Modelos\Cliente;
 use App\Modelos\CicloCliente;
 use App\Modelos\Producto;
 use App\Modelos\ClienteProducto;
 use App\Modelos\Ciclo;
 use Carbon\Carbon;
-use Excel;
 
 class RecepcionMP extends Controller
 {
@@ -133,52 +132,8 @@ class RecepcionMP extends Controller
     }
 
     public function reporteMP(){
-      $placa = Camion::all()->where('aEstado','A');
-      $camion = Proveedor::all()->where('aEstado','A');
-      
-      return view('admin.reportes.recepcionMP.buscarMP')->with('camion',$camion)-> with('placa',$placa);
+      $camion = Camion::all();
+      return view('admin.reportes.recepcionMP.buscarMP')->with('camion')-> with('camion',$camion);
 
-    }
-    public function showReport($desde, $hasta, $idPro, $idCamion){
-      $mp = \DB::table('tbl_clienteproducto')
-            ->join('tbl_ciclo_cliente','tbl_ciclo_cliente.eCodReg','=','tbl_clienteproducto.eCodCicloCliente')
-            ->join('tbl_ciclo','tbl_ciclo.eCodReg','=','tbl_ciclo_cliente.eCodCiclo')
-            ->join('tbl_proveedor','tbl_ciclo_cliente.eCodCliente','=','tbl_proveedor.eCodReg')
-            ->select('tbl_ciclo.dFechaLLegada as fecha','tbl_clienteproducto.aNumDoc as doc','tbl_clienteproducto.aNumTransaccion as tran',
-            'tbl_clienteproducto.eTipoProducto as tipo','tbl_clienteproducto.aNumEntidad as entidad','tbl_ciclo.aTicket as ticket',
-            'tbl_proveedor.aRazonSocial as cliente','tbl_ciclo.aPlacaCamion as placa','tbl_ciclo.aNombreChofer as chofer',
-            'tbl_clienteproducto.aNombreProducto as producto','tbl_clienteproducto.aNumGuia as guia',
-            'tbl_clienteproducto.codigo as codigo', 'tbl_clienteproducto.aLote as lote', 'tbl_clienteproducto.bodega_transaccion as bodega', 'tbl_clienteproducto.dcto_resp as dcto',
-            'tbl_clienteproducto.observacion as obs', 'tbl_clienteproducto.eSacos as sacos')
-            ->whereBetween('tbl_ciclo.dFechaLLegada',[$desde,$hasta])
-            ->where('tbl_proveedor.eCodReg',$idPro)
-            ->where('tbl_clienteproducto.eTipoProducto', 'MP')
-            ->get();
-            //dd($mp);
-            return view ('admin.reportes.recepcionMP.reporteMP')->with('mp',$mp);
-    }
-    public function ExcelMP(Request $request)
-    {
-     Excel::create('NovaCD', function($excel) use($request){
-       $excel->sheet('ControlLotesDespacho',function($sheet) use($request){
-        $mp = \DB::table('tbl_clienteproducto')
-            ->join('tbl_ciclo_cliente','tbl_ciclo_cliente.eCodReg','=','tbl_clienteproducto.eCodCicloCliente')
-            ->join('tbl_ciclo','tbl_ciclo.eCodReg','=','tbl_ciclo_cliente.eCodCiclo')
-            ->join('tbl_proveedor','tbl_ciclo_cliente.eCodCliente','=','tbl_proveedor.eCodReg')
-            ->select('tbl_ciclo.dFechaLLegada as fecha','tbl_clienteproducto.aNumDoc as doc','tbl_clienteproducto.aNumTransaccion as tran',
-            'tbl_clienteproducto.eTipoProducto as tipo','tbl_clienteproducto.aNumEntidad as entidad','tbl_ciclo.aTicket as ticket',
-            'tbl_proveedor.aRazonSocial as cliente','tbl_ciclo.aPlacaCamion as placa','tbl_ciclo.aNombreChofer as chofer',
-            'tbl_clienteproducto.aNombreProducto as producto','tbl_clienteproducto.aNumGuia as guia',
-            'tbl_clienteproducto.codigo as codigo', 'tbl_clienteproducto.aLote as lote', 'tbl_clienteproducto.bodega_transaccion as bodega', 'tbl_clienteproducto.dcto_resp as dcto',
-            'tbl_clienteproducto.observacion as obs', 'tbl_clienteproducto.eSacos as sacos')
-            ->whereBetween('tbl_ciclo.dFechaLLegada',[$request->fd,$request->fh])
-            ->where('tbl_proveedor.eCodReg',$request->aPlaca)
-            ->where('tbl_clienteproducto.eTipoProducto', 'MP')
-            ->get();
-             $sheet->loadView('admin.reportes.recepcionMp.excelMP',['mp'=>$mp]);
-       });
-     })->export('xls', [
-     'Set-Cookie'  => 'fileDownload=true;'
-]);
     }
 }

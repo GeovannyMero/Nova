@@ -29,17 +29,17 @@
     <!--panel de la llegada del camion-->
 
     <div class="panel-heading">
-      <h3 class="panel-title">LLEGADA</h3>
+      <h3 class="panel-title">Llegada</h3>
     </div>
     <div class="panel-body">
       <table id="example-1" class="table table-small-font table-bordered table-striped" cellspacing="0" width="100%">
         <thead>
           <tr>
            <!-- <th >Ciclo</th>-->
-            <th>Fecha </th>
-            <th>Hora </th>
+            <th>Fecha Llegada</th>
+            <th>Hora Llegada</th>
             <th>Camión</th>
-			       <th>Cédula</th>
+			<th>Cedula</th>
             <th>Chofer</th>
 
             </th>
@@ -66,16 +66,16 @@
 <!--fin de llegada-->
 <!-- Ingreso MP-->
       <div class="panel-heading">
-        <h3 class="panel-title">INGRESO</h3>
+        <h3 class="panel-title">Ingreso</h3>
       </div>
       <div class="panel-body">
       
        <table id="example-1" class="table table-small-font table-bordered table-striped" cellspacing="0" width="100%">
         <thead>
           <tr>
-            <!--<th >Ciclo</th>-->
-            <th colspan='2'>Fecha </th>
-            <th colspan='2'>Hora </th>
+            <th >Ciclo</th>
+            <th colspan='2'>Fecha Ingreso</th>
+            <th colspan='2'>Hora Ingreso</th>
 
 
 
@@ -85,15 +85,35 @@
         <tbody  id="bo">
           @foreach($ingreso as $i)
           <tr>
-             <!-- <td>{{ $i->eCodCiclo}}</td>-->
+              <td>{{ $i->eCodCiclo}}</td>
               <td colspan='2'>{{ $i->dtFechaIngreso }}</td>
               <td colspan='2'>{{ $i->hHoraIngreso}}</td>
           </tr>
           @endforeach
+          <!--Historial de carga-->
+                 <thead>
+                    <tr>
+                        <th colspan='5' bgcolor="#08F2FF">HISTORIAL DE CARGA</th>
+                    </tr>
+                    <tr>
+                        <th>Fecha</th>
+                        <th>Procedencia</th>
+                        <th colspan='2'>Insumo</th>
+                        <th>Guia remisón</th>
+                    </tr>
+                   </thead>
+                   <tbody>
+                       @foreach($hcarga as $i)
+                        <td>{{$i->fecha}}</td>
+                        <td>{{$i->procedencia}}-</td>
+                        <td  colspan='2'>{{$i->insumo}}</td>
+                        <td>{{$i->guia}}</td>
+                       @endforeach
+                   </tbody>
             <!--Historial de Limpieza-->
             <thead>
                 <tr>
-                    <th colspan ='5' bgcolor="#C9C2C2">Historial de Limpieza</th>
+                    <th colspan ='5' bgcolor="#08F2FF">HISTORIAL DE LIMPIEZA</th>
                 </tr>
                 <tr>
                     <th>Fecha</th>
@@ -106,38 +126,13 @@
             </thead>
             <tbody>
                 @foreach($hLimpieza as $i)
-                <tr>
-                  <td>{{Carbon\Carbon::parse($i->fecha)->format('Y-m-d')}}</td>
-                  <td>{{$i->MLim}}</td>
-                  <td>{{$i->ALim}}</td>
-                  <td>{{$i->MFumi}}</td>
-                  <td>{{$i->AFumi}}</td>
-                </tr>
+                <td>{{$i->fecha}}</td>
+                <td>{{$i->MLim}}</td>
+                <td>{{$i->ALim}}</td>
+                <td>{{$i->MFumi}}</td>
+                <td>{{$i->AFumi}}</td>
                 @endforeach
             </tbody>
-          <!--Historial de carga-->
-                 <thead>
-                    <tr>
-                        <th colspan='5' bgcolor="#C9C2C2">Historial de Carga</th>
-                    </tr>
-                    <tr>
-                        <th>Fecha</th>
-                        <th>Procedencia</th>
-                        <th colspan='2'>Insumo</th>
-                        <th>Guia Remisión</th>
-                    </tr>
-                   </thead>
-                   <tbody>
-                       @foreach($hcarga as $i)
-                        <tr>
-                          <td>{{Carbon\Carbon::parse($i->fecha)->format('Y-m-d')}}</td>
-                          <td>{{$i->procedencia}}-</td>
-                          <td  colspan='2'>{{$i->insumo}}</td>
-                          <td>{{$i->guia}}</td>
-                        </tr>
-                       @endforeach
-                   </tbody>
-          
              
             
 
@@ -147,7 +142,7 @@
       </div>
     <!--Aprobacion-->
     <div class="panel-heading">
-      <h3 class="panel-title">APROBACIÓN</h3>
+      <h3 class="panel-title">Aprobación</h3>
     </div>
     <div class="panel-body">
       <table id="example-1" class="table table-small-font table-bordered table-striped" cellspacing="0" width="100%">
@@ -180,7 +175,7 @@
      <!--fin de aprobacion-->
      <!--Peso Inicial-->
     <div class="panel-heading">
-      <h3 class="panel-title">PESO INICIAL</h3>
+      <h3 class="panel-title">Peso Inicial</h3>
     </div>
     <div class="panel-body">
        <table id="example-1" class="table table-small-font table-bordered table-striped" cellspacing="0" width="100%">
@@ -213,7 +208,7 @@
     <!--fin peso inicial-->
     <!--Inspeccion-->
     <div class="panel-heading">
-      <h3 class="panel-title">INSPECCIÓN</h3>
+      <h3 class="panel-title">Inspección</h3>
     </div>
     <div class="panel-body">
       <div id='ex'class="table-responsive"  data-pattern="priority-columns" data-focus-btn-icon="fa-asterisk" data-sticky-table-header="false" data-add-display-all-btn="true" data-add-focus-btn="false">
@@ -257,7 +252,7 @@
     <!--fin de inspeccion-->
     <!--Carga-->
     <div class="panel-heading">
-      <h3 class="panel-title">DESCARGA</h3>
+      <h3 class="panel-title">Carga</h3>
     </div>
     <div class="panel-body">
        <table id="example-1" class="table table-small-font table-bordered table-striped" cellspacing="0" width="100%">
@@ -266,8 +261,8 @@
            <!-- <th >Ciclo</th>-->
             <th>Fecha</th>
            <!-- <th>Hora</th>-->
-            <th>Inicio de descarga</th>
-            <th>Fin de descarga</th>
+            <th>Inicio de carga</th>
+            <th>Fin de Carga</th>
             <th>Observacion</th>
           </tr>
         </thead>
@@ -289,7 +284,7 @@
     <!--fin de carga-->
     <!--Peso de Salida-->
     <div class="panel-heading">
-      <h3 class="panel-title">PESO SALIDA</h3>
+      <h3 class="panel-title">Peso Salida</h3>
     </div>
     <div class="panel-body">
        <table id="example-1" class="table table-small-font table-bordered table-striped" cellspacing="0" width="100%">
@@ -321,7 +316,7 @@
     <!--fin de Peso de salida-->
     <!--Salida-->
     <div class="panel-heading">
-      <h3 class="panel-title">SALIDA</h3>
+      <h3 class="panel-title">Salida</h3>
     </div>
     <div class="panel-body">
       <table id="example-1" class="table table-small-font table-bordered table-striped" cellspacing="0" width="100%">
@@ -355,7 +350,23 @@
   
      
   </div>
+  <script src="https://cdn.jsdelivr.net/handlebarsjs/4.0.5/handlebars.min.js"></script>
+<script id="details-template" type="text/x-handlebars-template">
+        <div class="label label-info">Ingreso</div>
+        <table class="table details-table"  id="posts-@{{id}}">
+            <thead>
+            <tr>
+                <th>Id</th>
+                <th>Nombre</th>
+				<th>Descripción</th>
 
+            </tr>
+            </thead>
+						<tbody>
+
+						</tbody>
+        </table>
+    </script>
 
 
 

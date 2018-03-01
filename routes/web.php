@@ -277,5 +277,3 @@ Route::get('/detallesMP/{id}','General\RecepcionMP@show');
 
 //Reporte MP
 Route::get('/reporte/materiaPrima/','General\RecepcionMP@reporteMP');
-Route::get('/reporte/MP/{desde}/{hasta}/{idPro}/{idCamion}','General\RecepcionMP@showReport');
-Route::post('/reporteMPExcel','General\RecepcionMP@ExcelMP');

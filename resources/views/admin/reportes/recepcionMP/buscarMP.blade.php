@@ -5,7 +5,7 @@
 <div class="page-title">
 
 	<div class="title-env">
-		<h1 class="title">Recepción de Materia Prima</h1>
+		<h1 class="title">Control Lotes de despacho</h1>
 	</div>
 
 		<div class="breadcrumb-env">
@@ -15,7 +15,7 @@
 				</li>
 
 				<li class="active">
-					<strong>Recepción de MP </strong>
+					<strong>Control Lotes de despacho </strong>
 				</li>
 			</ol>
 		</div>
@@ -28,7 +28,7 @@
 		<div class="panel panel-default">
 			<div class="panel-heading">
 
-					<h3 class="panel-title">Recepción de Materia Prima</h3>
+					<h3 class="panel-title">Control Lotes de despacho</h3>
 
 
 				<div class="panel-options">
@@ -42,7 +42,7 @@
 			<div class="panel-body">
 
 
-				<form role="form" class="form-inline validate" role="form" id="frmDatos" method="POST" action="{{url('/reporteMPExcel')}}">
+				<form role="form" class="form-inline validate" role="form" id="frmDatos" method="POST" action="{{url('/reporteExcel')}}">
 						{{ csrf_field() }}
 				<div class="form-inline">
 					<div class="form-group">
@@ -55,11 +55,11 @@
 					</div>
 
 					<div class="form-group">
-						<label class="control-label">Proveedor:</label>
+						<label class="control-label">Cliente:</label>
 						<select class=" form-control select"id="aPlaca" name="aPlaca">
 							 <option value="" disabled selected>Selecione una opción</option>
 							@foreach($camion as $i)
-			                   	<option value="{{$i->eCodReg}}">{{$i->aRazonSocial}}</option>
+			                   	<option value="{{$i->eCodReg}}">{{$i->aNombre}}</option>
 			                @endforeach
 			                <option value=0>Todos</option>
 
@@ -175,27 +175,6 @@
 	$('#fh').datepicker({
 		format: "yyyy-mm-dd"
 	});
-
-
-function buscar(){
-	var fd = $('#fd').val();
-	var fh = $('#fh').val();
-	var idPro = $('#aPlaca').val();
-	var idCamion = $('#idCamion').val();
-	//alert(idCamion);
-	var route = "{{url('/reporte/MP')}}" + '/' + fd + '/' + fh + '/'  + idPro + '/' + idCamion;
-	$.ajax({
-		type: 'get',
-		url: route,
-		success: function(data){
-			$('#bo').html(data);
-
-		},
-		error: function(data){
-
-		}
-	});
-}
 
 </script>
 	@endsection
